@@ -1,36 +1,75 @@
 package com.skilldistillery.filmquery.app;
 
-import java.util.Scanner;
+import java.util.*;
 
-import com.skilldistillery.filmquery.database.DatabaseAccessor;
-import com.skilldistillery.filmquery.database.DatabaseAccessorObject;
-import com.skilldistillery.filmquery.entities.Film;
+import com.skilldistillery.filmquery.database.*;
+import com.skilldistillery.filmquery.entities.*;
 
 public class FilmQueryApp {
-  
-  DatabaseAccessor db = new DatabaseAccessorObject();
+	private Film film;
+	private List<Film> films = new ArrayList<Film>();
 
-  public static void main(String[] args) {
-    FilmQueryApp app = new FilmQueryApp();
-    app.test();
-//    app.launch();
-  }
+	DatabaseAccessor db = new DatabaseAccessorObject();
 
-  private void test() {
-    Film film = db.findFilmById(1);
-    System.out.println(film);
-  }
+	public static void main(String[] args) {
+		FilmQueryApp app = new FilmQueryApp();
+//    app.test();
+		app.launch();
+	}
 
-  private void launch() {
-    Scanner input = new Scanner(System.in);
-    
-    startUserInterface(input);
-    
-    input.close();
-  }
+//  this is for testing setup of application, then be menu driven
+//  private void test() {
+//    Film film = db.findFilmById(1);
+//    System.out.println(film);
+//  }
 
-  private void startUserInterface(Scanner input) {
-    
-  }
+	private void launch() {
+		Scanner input = new Scanner(System.in);
 
+		startUserInterface(input);
+
+		input.close();
+	}
+
+	private void startUserInterface(Scanner input) {
+
+		boolean keepGoing = true;
+
+		while (keepGoing) {
+			System.out.println(
+					"Enter a number (1) Lookup film by its ID or (2) Lookup film by search (3) Exit the application");
+			String choice = input.next();
+			switch (choice) {
+			case "1":
+				System.out.println("select film ID");
+				int filmId = input.nextInt();
+				film = db.findFilmById(filmId);
+				if (film == null) {
+					System.out.println("film not found");
+				} else {
+					System.out.println(film);
+
+				}
+				break;
+			case "2":
+				System.out.println("type part of the title or description of the film");
+				String filmSearch = input.next();
+				films = db.findFilmBySearchWord(filmSearch);
+				if (films.size() == 0) {
+					System.out.println("film not found");
+				} else {
+					System.out.println(films);
+//					films = null;
+				}
+				break;
+			case "3":
+				System.out.println("Exiting application");
+				keepGoing = false;
+				break;
+			default:
+				System.out.println("Invalid entry");
+				break;
+			}
+		}
+	}
 }
