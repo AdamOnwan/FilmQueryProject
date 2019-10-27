@@ -7,13 +7,10 @@ import com.skilldistillery.filmquery.entities.*;
 
 public class DatabaseAccessorObject implements DatabaseAccessor {
 	private static final String URL = "jdbc:mysql://localhost:3306/sdvid?useSSL=false";
-	private Film film = null;
-	private Actor actor = null;
-	private List<Film> films = new ArrayList<Film>();
-	private List<Actor> actors = new ArrayList<Actor>();
 
 	@Override
 	public Film findFilmById(int filmId) {
+		Film film = null;
 		String sql = "SELECT title, description, release_year, rating, name "
 				+ "FROM film JOIN language ON film.language_id = language.id WHERE film.id = ?";
 		try (Connection conn = DriverManager.getConnection(URL, "student", "student");
@@ -49,6 +46,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	}
 
 	public Actor findActorById(int actorId) {
+		Actor actor = null;
 		String sql = "SELECT id, first_name, last_name FROM actor";
 		try (Connection conn = DriverManager.getConnection(URL, "student", "student");
 				PreparedStatement stmt = conn.prepareStatement(sql);) {
@@ -67,6 +65,8 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	}
 
 	public List<Actor> findActorsByFilmId(int filmId) {
+		Actor actor = null;
+		List<Actor> actors = new ArrayList<Actor>();
 		String sql = "SELECT id, first_name, last_name FROM actor JOIN film_actor ON id = actor_id WHERE film_id = ?";
 		try (Connection conn = DriverManager.getConnection(URL, "student", "student");
 				PreparedStatement stmt = conn.prepareStatement(sql);) {
@@ -87,6 +87,8 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 	@Override
 	public List<Film> findFilmBySearchWord(String filmSearch) {
+		Film film = null;
+		List<Film> films = new ArrayList<Film>();
 		String sql = "SELECT title, description, release_year, rating, name"
 				+ " FROM film JOIN language ON film.language_id = language.id "
 				+ " WHERE film.title LIKE ? OR film.description LIKE ?";
@@ -103,7 +105,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setRating(rs.getString(4));
 				film.setLanguage(rs.getString(5));
 				film.setActors(findActorsByFilmId(film.getId()));
-//				Film film = new Film();
 				films.add(film);
 			}
 		} catch (SQLException e) {
@@ -111,5 +112,4 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		}
 		return films;
 	}
-
 }

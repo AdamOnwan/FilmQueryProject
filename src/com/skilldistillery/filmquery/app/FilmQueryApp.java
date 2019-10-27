@@ -6,7 +6,7 @@ import com.skilldistillery.filmquery.database.*;
 import com.skilldistillery.filmquery.entities.*;
 
 public class FilmQueryApp {
-	private Film film;
+	private Film film = new Film();
 	private List<Film> films = new ArrayList<Film>();
 
 	DatabaseAccessor db = new DatabaseAccessorObject();
@@ -59,7 +59,6 @@ public class FilmQueryApp {
 					System.out.println("film not found");
 				} else {
 					System.out.println(films);
-//					films = null;
 				}
 				break;
 			case "3":
