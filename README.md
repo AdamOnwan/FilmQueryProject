@@ -5,7 +5,8 @@
 This program simulates a film database lookup.
 
 ### How to run
-1. Start the program in command line or Eclipse by clicking the play button or right click and run as Java Application
+1. Open the file on Eclipse
+2. Click the play button or click anywhere in the code and right click Run as Java Application
 
 #### Installation
 1. Download JDK8
@@ -28,7 +29,7 @@ This program simulates a film database lookup.
 3. JDBC and ORM - Used as the database where all the films and actors are stored into
 4. ToString - Used to simulate text being inputed into the database
 5. MySQL - Used to test commands in the database before making a ToString in the application
-6. SQL - commands SELECT, FROM, JOIN, ON, WHERE, LIKE to gather information in and display the it neatly from the database 
+6. SQL - commands SELECT, FROM, JOIN, ON, WHERE, LIKE to gather information in and display the it neatly from the database
 7. Try/Catch to catch SQL errors on the application, and used Try with resources to force AutoCloseable database connections
 
 ### Lessons learned
