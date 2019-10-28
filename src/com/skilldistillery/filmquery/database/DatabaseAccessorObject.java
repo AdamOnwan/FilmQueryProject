@@ -89,7 +89,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	public List<Film> findFilmBySearchWord(String filmSearch) {
 		Film film = null;
 		List<Film> films = new ArrayList<Film>();
-		String sql = "SELECT title, description, release_year, rating, name"
+		String sql = "SELECT title, description, film.id, release_year, rating, name"
 				+ " FROM film JOIN language ON film.language_id = language.id "
 				+ " WHERE film.title LIKE ? OR film.description LIKE ?";
 		try (Connection conn = DriverManager.getConnection(URL, "student", "student");
@@ -101,9 +101,10 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film = new Film();
 				film.setTitle(rs.getString(1));
 				film.setDescription(rs.getString(2));
-				film.setReleaseYear(rs.getInt(3));
-				film.setRating(rs.getString(4));
-				film.setLanguage(rs.getString(5));
+				film.setId(rs.getInt(3));
+				film.setReleaseYear(rs.getInt(4));
+				film.setRating(rs.getString(5));
+				film.setLanguage(rs.getString(6));
 				film.setActors(findActorsByFilmId(film.getId()));
 				films.add(film);
 			}
