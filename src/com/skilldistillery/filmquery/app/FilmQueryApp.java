@@ -62,6 +62,23 @@ public class FilmQueryApp {
 				}
 				break;
 			case "3":
+				System.out.println("create film");
+				Film film = new Film();
+				System.out.println("insert title");
+				film.setTitle(input.next());
+				System.out.println("insert description");
+				film.setDescription(input.next());
+				System.out.println("insert release year");
+				film.setReleaseYear(input.nextInt());
+				System.out.println("insert rating");
+				film.setRating(input.next());
+				film.setLanguageId(1);
+				db.createFilm(film);
+				break;
+			case "4":
+				System.out.println("delete film");
+				break;
+			case "5":
 				System.out.println("Exiting application");
 				keepGoing = false;
 				break;

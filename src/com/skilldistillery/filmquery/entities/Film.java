@@ -203,7 +203,7 @@ public class Film {
 	@Override
 	public String toString() {
 		return "Film [title=" + title + ", releaseYear=" + releaseYear + ", rating=" + rating + ", description="
-				+ description + ", language=" + language + ", actors=" + actors + "]";
+				+ description + ", language=" + language + ", actors=" + actors + "]\n";
 	}
 
 	public Film(int id, String title, String description, int releaseYear, int languageId, int rentalDuration,
